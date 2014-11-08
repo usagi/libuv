@@ -25,7 +25,7 @@
 #include <stdint.h> /* uintptr_t */
 
 #include <errno.h>
-#include <unistd.h> /* usleep */
+#include <unistd.h> /* usleep, readlink */
 #include <string.h> /* strdup */
 #include <stdio.h>
 #include <stdlib.h>
@@ -49,7 +49,7 @@ void platform_init(int argc, char **argv) {
   /* Disable stdio output buffering. */
   setvbuf(stdout, NULL, _IONBF, 0);
   setvbuf(stderr, NULL, _IONBF, 0);
-  strncpy(executable_path, argv[0], sizeof(executable_path) - 1);
+  readlink(OS_CURRENT_EXECUTABLE_SYMLINK, executable_path, PATHMAX);
   signal(SIGPIPE, SIG_IGN);
 }
 

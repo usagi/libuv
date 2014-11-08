@@ -33,4 +33,10 @@ typedef struct {
   int terminated;
 } process_info_t;
 
+#ifdef __linux__
+  #define OS_CURRENT_EXECUTABLE_SYMLINK "/proc/self/exe"
+#else
+  #define OS_CURRENT_EXECUTABLE_SYMLINK "/proc/curproc/file"
+#endif
+
 #endif  /* TEST_RUNNER_UNIX_H */
